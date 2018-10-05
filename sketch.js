@@ -2,7 +2,7 @@ var anda;//parametro para definir image()
 var andando = [];//variavel do tipo array para armazenar as imagens
 var contframe = 2;//variavel que ira indicar o frame da animação
 var tecla = false; //indica personagem parado
-var d = 100;
+var d = 30; // variavel que vai indicar a posição do personagem
 
 function preload(){
   for(i = 1; i <=9 ; i++){
@@ -10,6 +10,7 @@ function preload(){
   } // esse 'for' serve para preencher o array 'andando' com as imagens do personagem
 
 } 
+
 function setup() {
 createCanvas(600,600);
 frameRate(15);
@@ -25,7 +26,7 @@ rect(0,540,600,60);//Plataforma
 //Movimentação personagem
 
 if(keyIsDown(65)){
-  d -= 5; 
+  d -= 5; //incremento na posição do personagem
   tecla = true;//quando a tecla é acionada a animação de movimento é acionada(true)
 }else{
   tecla = false;//tecla não acionada sprite parado
