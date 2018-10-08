@@ -11,6 +11,7 @@ var soco = false;//indica se a animação de atirar está ativa ou nao
 var xd = d + 30;//indica a posição do disparo
 var paradoa = false;//indica que o personagem estará virado para o lado esquerdo quando parado
 var paradod = false;//indica que o personagem estará virado para o lado direito quando parado
+var delta = 0;
 
 function preload(){
   for(i = 1; i <=9 ; i++){
@@ -60,33 +61,40 @@ if(keyIsDown(68)){
 if(keyIsDown(CONTROL) && disparo==false){
   disparo = true;
   soco = true;
-  xd = d + 40;
+  if(paradod == true){
+    xd = d + 50;  
+    delta = 5;
+  } else {
+      xd = d - 11;
+      delta = -5;
+  }
 }else{
   soco = false;
 }
 
-//Movimentação do disparo (Precisa corrigir uma falha na movimentação do disparo)
-if(disparo == true && paradod == true){
-  xd += 5;
-  if(xd > 600){
+//Movimentação do disparo
+if(disparo == true){
+  xd = xd + delta;
+  if(delta > 0){
+   if(xd > 600){
     disparo = false;
     }
-  }if(disparo == true && paradoa == true){
-    xd -= 5;
-    if(xd<0){
+  }else{
+   if(xd<0){
       disparo = false;
     }
   }
+} 
 //Animação do disparo
 if(disparo == true){
-  if(paradod == true){
-  image(fogo,xd,490,20,30);
-  }else if(paradoa == true){
-    image(fogox,xd,490,20,30);
+  if(delta>0){
+  image(fogo,xd,495,20,30);
+  }else {
+    image(fogox,xd,495,20,30);
   }
 }
 
-//Animação
+//Animação personagem
 if(teclad == true){
 paradod = true;
   anda = andando[contframe];
@@ -104,7 +112,11 @@ if(contframe >= 10){
     contframe = 2;
   }
 }else if(soco == true){
-  image(socando, d, 460);
+  if(delta>0){
+    image(socando, d, 460);
+  } else{
+      image(socandox, d, 460);
+  }
 }else{
   if(paradod == true){
   anda = andando[1];
