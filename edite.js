@@ -88,7 +88,7 @@ if(keyIsDown(87) && !pulo){
 if(pulo){
   cont++
   hp = 0.5*cont*(cont-30);
-  if(hp<0){
+  if(hp>0){
     pulo = false;
     hp = 0;
   }
