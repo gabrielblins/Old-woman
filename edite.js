@@ -1,4 +1,4 @@
-var anda,vira,soca;//parametro para definir image()
+var anda,vira,soca;//parametro para definir image
 var andando = [];//variavel do tipo array para armazenar as imagens virado para direita
 var virando = [];//variavel do tipo array para armazenar as imagens virado para esquerda
 var pulandod = [];
