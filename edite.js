@@ -1,13 +1,17 @@
-var anda,vira,soca;//parametro para definir image()
+var anda,vira,soca,pulae,pulad;//parametro para definir image()
 var andando = [];//variavel do tipo array para armazenar as imagens virado para direita
 var virando = [];//variavel do tipo array para armazenar as imagens virado para esquerda
 var pulandod = [];
 var pulandoe = [];
 var contframe = 2;//variavel que ira indicar o frame da animação
+var contpulo = 1;
+var cont = 0;
 var teclad = false; //indica que a animação do personagem será para a direita
-var teclaa = false; //indica que a animação do personagem será para a esquerda
+var teclaa = false;//indica que a animação do personagem será para a esquerda
+var pulo = false;
 var d = 30; // variavel que vai indicar a posição do personagem eixo x
 var h = 460; //variavel que vai indicar a posição do personagem eixo y
+var hp = 0;
 var fogo,socando,fogox,socandox;// variaveis para guardar as imagens do disparo
 var disparo = false;//indica se o disparo está ativo
 var soco = false;//indica se a animação de atirar está ativa ou nao
@@ -71,18 +75,23 @@ if(keyIsDown(65)){
   teclaa = false;//tecla não acionada sprite parado
 }
 if(keyIsDown(68)){
- d += 5;
- teclad = true;
- paradoa = false;
+  d += 5;
+  teclad = true;
+  paradoa = false;
 }else{
   teclad = false;
 }
-if(keyIsDown(87)){
-h--;
-if(h<=360){
-  for(h;h<=460;h++){
-  }
+if(keyIsDown(87) && !pulo){
+  pulo = true;
+  cont = 0;
 }
+if(pulo){
+  cont++
+  hp = 0.5*cont*(cont-30);
+  if(hp<0){
+    pulo = false;
+    hp = 0;
+  }
 }
 
 //Disparo da Bola de fogo
@@ -126,7 +135,7 @@ if(disparo == true){
 }
 
 //Animação personagem
-if(teclad == true){
+if(teclad && !pulo){
 paradod = true;
   anda = andando[contframe];
 image(anda, d, h);
@@ -134,7 +143,7 @@ contframe++;
 if(contframe >= 10){
   contframe = 2;
   }
-}else if(teclaa == true){
+}else if(teclaa && !pulo){
  paradoa = true;
   vira = virando[contframe];
   image(vira, d, h);
@@ -157,6 +166,13 @@ if(contframe >= 10){
     if(contsoco>10){
       contsoco = 2;
     }
+  }
+}else if(pulo){
+  pulad = pulandod[contpulo];
+  contpulo++
+  image(pulad,d,h+hp);
+  if(contpulo>10){
+    contpulo=1;
   }
 }else{
   if(paradod == true){
